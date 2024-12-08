@@ -10,21 +10,39 @@
  */
 class Solution {
 public:
+ListNode*merge(ListNode*l1,ListNode*l2){
+    ListNode dummy(0);
+        ListNode* tail = &dummy;
+        while(l1&&l2){
+            if(l1->val>l2->val){
+                tail->next= l2;
+                l2=l2->next;
+            }
+            else{
+                tail->next=l1;
+                l1=l1->next;
+            }
+            tail=tail->next;
+        }
+        if(l1)tail->next=l1;
+        else tail->next=l2;
+        return dummy.next;
+}
     ListNode* sortList(ListNode* head) {
-        vector<int>v;
-        ListNode*t=head;
-        while(t!=NULL){
-            v.push_back(t->val);
-            t=t->next;
+         if (!head || !head->next) {
+            return head;  // Base case: empty list or a single element
         }
-        sort(v.begin(),v.end());
-        int i =0;
-        ListNode*t1=head;
-        while(t1!=NULL){
-            t1->val= v[i];
-            t1=t1->next;
-            i++;
-        }
-        return head;
+       ListNode*slow = head;
+       ListNode*fast = head->next;
+       while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+       }
+       ListNode* middle = slow->next;
+       slow->next=NULL;
+       //recursively call merge 
+       ListNode*left = sortList(head);
+        ListNode*right = sortList(middle);
+        return merge(left,right);
     }
 };
