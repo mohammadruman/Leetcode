@@ -10,7 +10,7 @@ public:
             v2[ch-'a']++;
         }
         for(int i =0 ; i < v1.size();i++){
-             if (abs(v1[i] - v2[i]) > 3) { 
+            if(abs(v1[i]-v2[i])>3){
                 return false;
             }
         }
