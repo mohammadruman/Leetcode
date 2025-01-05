@@ -27,9 +27,13 @@ public:
         }
         
         for(int i = 0; i < n; i++) {
-            s[i] = ((s[i] - 'a' + ans[i]) % 26 + 26) % 26 + 'a';
+            int shift = ans[i]%26;
+            if(shift < 0){
+                shift+=26;
+            }
+            s[i] = ((s[i] - 'a' + shift) % 26) + 'a';
         }
         
-        return s;
+          return s;
     }
 };
